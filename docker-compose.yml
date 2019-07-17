@@ -41,19 +41,19 @@ services:
     ports:
       - ${MYSQL_PORT}:3306
 
-  db-testing:
-    build: ./docker/mysql
-    tmpfs:
-      - /var/lib/mysql
-      - /var/log/mysql
-    environment:
-      - MYSQL_DATABASE=${MYSQL_DATABASE}
-      - MYSQL_USER=${MYSQL_USER}
-      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
-      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
-      - TZ=${TIMEZONE}
-    ports:
-      - ${MYSQL_TESTING_PORT}:3306
+  # db-testing
+  #   build: ./docker/mysql
+  #   tmpfs:
+  #     - /var/lib/mysql
+  #     - /var/log/mysql
+  #   environment:
+  #     - MYSQL_DATABASE=${MYSQL_DATABASE}
+  #     - MYSQL_USER=${MYSQL_USER}
+  #     - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+  #     - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+  #     - TZ=${TIMEZONE}
+  #   ports:
+  #     - ${MYSQL_TESTING_PORT}:3306
 
   node:
     image: node:11-alpine
@@ -61,13 +61,13 @@ services:
       - ${PROJECT_PATH}:/work
     working_dir: /work
 
-  redis:
-    image: redis:alpine
+  # redis:
+  #   image: redis:alpine
 
-  mail:
-    image: mailhog/mailhog
-    ports:
-      - ${MAILHOG_PORT}:8025
+  # mail:
+  #   image: mailhog/mailhog
+  #   ports:
+  #     - ${MAILHOG_PORT}:8025
 
 volumes:
   db:

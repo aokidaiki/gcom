@@ -1,0 +1,3 @@
+[09-Jul-2019 15:40:29 Asia/Tokyo] PHP Warning:  require(/work/public/../vendor/autoload.php): failed to open stream: No such file or directory in /work/public/index.php on line 24
+[09-Jul-2019 15:40:29 Asia/Tokyo] PHP Stack trace:
+[09-Jul-2019 15:40:29 Asia/Tokyo] PHP   1. {main}() /work/public/index.php:0
