@@ -15,4 +15,8 @@ class User extends Authenticatable
         'games_id', 'icom image', 'background_image', 'twitter_url',
         'board_name', 'board_comment', 
     ];
+    public function games()
+    {
+        return $this->hasMany('App\Games');
+    }
 }

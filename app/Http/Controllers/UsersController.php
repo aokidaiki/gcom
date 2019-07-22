@@ -61,8 +61,10 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user)
+    public function show(User $user, Games $games)
     {
+        $games = Games::where('id',$user->games_id)->get();
+        
         $user_id = User::findOrFail($user->id);
         return view('users.show', [
             'id' => $user_id->id,
@@ -75,6 +77,10 @@ class UsersController extends Controller
             'twitter_url' => $user_id->twitter_url,
             'board_name' => $user_id->board_name,
             'board_comment' => $user_id->board_comment,
+            'user' => $user_id,
+            'games' => $games,
+            
+
         ]);
     }
 
@@ -86,6 +92,7 @@ class UsersController extends Controller
      */
     public function edit(User $user)
     {
+
         $user_id = User::findOrFail($user->id);
         return view('users.edit', [
             'id' => $user_id->id,
@@ -98,6 +105,7 @@ class UsersController extends Controller
             'twitter_url' => $user_id->twitter_url,
             'board_name' => $user_id->board_name,
             'board_comment' => $user_id->board_comment,
+            'user' => $user_id,
         ]);
     }
 
@@ -111,6 +119,7 @@ class UsersController extends Controller
     public function update(Request $request, User $user)
     {
             $user->fill($request->all());
+
 
             $user->save();
              return redirect("/users/{$user->id}");

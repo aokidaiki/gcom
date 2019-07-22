@@ -28,51 +28,51 @@
                 
                     <div class="form-group">
                         <label>ゲームID(任天堂ID・プレステーションID)</label>
-                        <input type="text" class="form-control" name="games_id" value="{{ $games_id }}">
+                        <input type="text" class="form-control" name="gamelist" value="{{ $gamelist }}">
                     </div>
                     <div class="form-group">
                         <label>ツイッターURL</label>
-                        <input type="text" class="form-control" name="twitter_url">
+                        <input type="text" class="form-control" name="twitter_url" value="{{ $twitter_url }}">
                     </div>
                     <div class="form-group">
                         <label>自己紹介文</label>
-                        <textarea class="form-control" rows="3" name="comment"></textarea>
+                        <textarea class="form-control" rows="3" name="comment" >{{ $comment }}</textarea>
                     </div>
                     <div class="form-check">
                     </div>
                         <label>ゲームタイトル選択(複数)</label>
                     <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="gamelist" value="" checked>
+                    <input class="form-check-input" type="checkbox" name="games_id" value="1" checked>
                     <label class="form-check-label" for="exampleRadios1">
-                        フォートナイト
+                        ポケモン
                     </label>
                     </div>
                     <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="gamelist" value="option2">
+                    <input class="form-check-input" type="checkbox" name="games_id" value="2">
                     <label class="form-check-label" for="exampleRadios2">
                         スマブラ
                     </label>
                     </div>
                     <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="gamelist" value="option3">
+                    <input class="form-check-input" type="checkbox" name="games_id" value="3">
                     <label class="form-check-label" for="exampleRadios3">
-                        ポケモン
+                        フォートナイト
                     </label>
                     </div>
                     <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="gamelist" value="option4">
+                    <input class="form-check-input" type="checkbox" name="games_id" value="4">
                     <label class="form-check-label" for="exampleRadios4">
                         スプラトゥーン
                     </label>
                     </div>
                     <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="gamelist" value="option5">
+                    <input class="form-check-input" type="checkbox" name="games_id" value="5">
                     <label class="form-check-label" for="exampleRadios5">
                         エイペックスレジェンド
                     </label>
                     </div>
                     <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="gamelist" value="option6">
+                    <input class="form-check-input" type="checkbox" name="games_id" value="6">
                     <label class="form-check-label" for="exampleRadios6">
                         NBA２K
                     </label>
