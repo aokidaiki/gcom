@@ -3,8 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Users;
+use App\User;
 use App\Games;
+use App\Http\Requests\UserRequest;
 
 class UsersController extends Controller
 {
@@ -13,14 +14,25 @@ class UsersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(User $user)
     {
-        $name = Users::all();
+        $user_id = User::findOrFail($user->id);
         
-        return view('games.index', [
-            'name' => $name,
+        return view('users.index', [
+            'name' => $user_id->name, 
+            'comment' => $user_id->comment,
+            'gamelist' => $user_id->gamelist,
+            'game_id' => $user_id->game_id,
+            'icon image' => $user_id->icon_image, 
+            'background_image' => $user_id->background_image,
+            'twitter_url' => $user_id->twitter_url,
+            'board_name' => $user_id->board_name,
+            'board_comment' => $user_id->board_comment,
         ]);
+        
     }
+
+    
 
     /**
      * Show the form for creating a new resource.
@@ -49,9 +61,21 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(User $user)
     {
-        //
+        $user_id = User::findOrFail($user->id);
+        return view('users.show', [
+            'id' => $user_id->id,
+            'name' => $user_id->name, 
+            'comment' => $user_id->comment,
+            'gamelist' => $user_id->gamelist,
+            'game_id' => $user_id->game_id,
+            'icon image' => $user_id->icon_image, 
+            'background_image' => $user_id->background_image,
+            'twitter_url' => $user_id->twitter_url,
+            'board_name' => $user_id->board_name,
+            'board_comment' => $user_id->board_comment,
+        ]);
     }
 
     /**
@@ -60,9 +84,21 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(User $user)
     {
-        //
+        $user_id = User::findOrFail($user->id);
+        return view('users.edit', [
+            'id' => $user_id->id,
+            'name' => $user_id->name, 
+            'comment' => $user_id->comment,
+            'gamelist' => $user_id->gamelist,
+            'game_id' => $user_id->game_id,
+            'icon image' => $user_id->icon_image, 
+            'background_image' => $user_id->background_image,
+            'twitter_url' => $user_id->twitter_url,
+            'board_name' => $user_id->board_name,
+            'board_comment' => $user_id->board_comment,
+        ]);
     }
 
     /**
@@ -72,9 +108,14 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id, User $user)
     {
-        //
+        dd($request);
+            $user->fill($request->all());
+
+            $user->save();
+             return redirect("/users/{$id}");
+            
     }
 
     /**

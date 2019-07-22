@@ -22,7 +22,7 @@ class CreateUsersTable extends Migration
             $table->text('comment')->nullable();
             $table->text('gamelist')->nullable();
             $table->unsignedBigInteger('games_id')->nullable();
-            $table->string('icon image')->nullable();
+            $table->string('icon_image')->nullable();
             $table->string('background_image')->nullable();
             $table->string('twitter_url')->nullable();
             $table->string('board_name')->nullable();

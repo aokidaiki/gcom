@@ -17,6 +17,8 @@
 
 Auth::routes();
 
+Route::get('/users/{user}','UsersController@show')->name('users.show');
+Route::get('/users/index', 'UsersController@index')->name('users.index');
 Route::get('/', 'GamesController@index')->name('games.index');
 Route::resource('/games', 'GamesController', ['except' => ['index']]);
-
+Route::resource('/users', 'UsersController',['except' => ['index']]);
