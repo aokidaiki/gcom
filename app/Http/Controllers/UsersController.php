@@ -22,7 +22,7 @@ class UsersController extends Controller
             'name' => $user_id->name, 
             'comment' => $user_id->comment,
             'gamelist' => $user_id->gamelist,
-            'game_id' => $user_id->game_id,
+            'games_id' => $user_id->games_id,
             'icon image' => $user_id->icon_image, 
             'background_image' => $user_id->background_image,
             'twitter_url' => $user_id->twitter_url,
@@ -69,7 +69,7 @@ class UsersController extends Controller
             'name' => $user_id->name, 
             'comment' => $user_id->comment,
             'gamelist' => $user_id->gamelist,
-            'game_id' => $user_id->game_id,
+            'games_id' => $user_id->games_id,
             'icon image' => $user_id->icon_image, 
             'background_image' => $user_id->background_image,
             'twitter_url' => $user_id->twitter_url,
@@ -92,7 +92,7 @@ class UsersController extends Controller
             'name' => $user_id->name, 
             'comment' => $user_id->comment,
             'gamelist' => $user_id->gamelist,
-            'game_id' => $user_id->game_id,
+            'games_id' => $user_id->games_id,
             'icon image' => $user_id->icon_image, 
             'background_image' => $user_id->background_image,
             'twitter_url' => $user_id->twitter_url,
@@ -108,13 +108,12 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id, User $user)
+    public function update(Request $request, User $user)
     {
-        dd($request);
             $user->fill($request->all());
 
             $user->save();
-             return redirect("/users/{$id}");
+             return redirect("/users/{$user->id}");
             
     }
 

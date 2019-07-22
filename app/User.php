@@ -12,7 +12,7 @@ class User extends Authenticatable
     
     protected $fillable = [
         'id', 'name', 'email', 'password','comment', 'gamelist',
-        'game_id', 'icom image', 'background_image', 'twitter_url',
+        'games_id', 'icom image', 'background_image', 'twitter_url',
         'board_name', 'board_comment', 
     ];
 }

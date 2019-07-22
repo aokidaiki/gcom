@@ -28,7 +28,7 @@ class UserRequest extends FormRequest
             'name' => 'required',
             'comment' => 'required',
             'gamelist' => 'required',
-            'game_id' => 'required',
+            'games_id' => 'required',
             'icon_image' => 'required',
             'background_image' => 'required',
             'twitter_url' => 'required',
