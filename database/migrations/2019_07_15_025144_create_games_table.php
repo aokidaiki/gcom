@@ -17,6 +17,10 @@ class CreateGamesTable extends Migration
             $table->bigIncrements('id');
             $table->string('games_title');
             $table->timestamps();
+            // $table->foreign('id')
+            // ->references('games_id')
+            // ->on('users')
+            // ->onDelete('cascade');
         });
     }
 

@@ -38,9 +38,9 @@
                         <label>自己紹介文</label>
                         <textarea class="form-control" rows="3" name="comment" >{{ $comment }}</textarea>
                     </div>
-                    <div class="form-check">
-                    </div>
-                        <label>ゲームタイトル選択(複数)</label>
+                    <!-- <div class="form-check">
+                    </div> -->
+                        <!-- <label>ゲームタイトル選択(複数)</label>
                     <div class="form-check">
                     <input class="form-check-input" type="checkbox" name="games_id" value="1" checked>
                     <label class="form-check-label" for="exampleRadios1">
@@ -76,7 +76,7 @@
                     <label class="form-check-label" for="exampleRadios6">
                         NBA２K
                     </label>
-                    </div>
+                    </div> -->
 
                     <input type="hidden" name="user_id" value="{{ Auth::id() }}">
                     <input type="submit" value="変更する">

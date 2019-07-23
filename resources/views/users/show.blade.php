@@ -25,10 +25,15 @@
                             <p class="card-text">{{ $comment }}</p>
                         </div>
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item">ゲームプレイ一覧{{ $games }}</li>
+                            <!-- <li class="list-group-item">ゲームプレイ一覧{{ $games }}</li> -->
                             <li class="list-group-item">ゲームID{{ $gamelist }}</li>
                             <li class="list-group-item">新着投稿掲示板</li>
                         </ul>
+                        @if( $id == Auth::user()->id)
+                             <div class="card-body">
+                             <a href="{{ route('users.create', $id) }}" class="btn btn-primary">掲示板作成</a>
+                             </div>
+                            @endif
                         <div class="card-body">
                             <a href="" class="btn btn-primary">コメントする</a>
                             <a href="{{ $twitter_url }}" class="card-link">ツイッターURL</a>

@@ -39,9 +39,17 @@ class UsersController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(User $user)
     {
-        //
+        $user_id = User::findOrFail($user->id);
+
+        return view('users.create', [
+            'id' => $user_id->id,
+            'board_name' => $user_id->board_name,
+            'board_comment' => $user_id->board_comment,
+            'gamelist' => $user_id->gamelist,
+            'user' => $user_id,
+            ]);
     }
 
     /**
@@ -63,7 +71,7 @@ class UsersController extends Controller
      */
     public function show(User $user, Games $games)
     {
-        $games = Games::where('id',$user->games_id)->get();
+        $games = Games::select('games_title')->where('id',$user->games_id)->get();
         
         $user_id = User::findOrFail($user->id);
         return view('users.show', [
