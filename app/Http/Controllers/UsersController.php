@@ -41,14 +41,8 @@ class UsersController extends Controller
      */
     public function create(User $user)
     {
-        $user_id = User::findOrFail($user->id);
-
         return view('users.create', [
-            'id' => $user_id->id,
-            'board_name' => $user_id->board_name,
-            'board_comment' => $user_id->board_comment,
-            'gamelist' => $user_id->gamelist,
-            'user' => $user_id,
+            'user' => $user,
             ]);
     }
 
@@ -60,7 +54,11 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $user = New User;
+        $input = $request->only($user->getFillable());
+        $user = $user->create($input);
+
+        return redirect("/users/" . $user->id);
     }
 
     /**

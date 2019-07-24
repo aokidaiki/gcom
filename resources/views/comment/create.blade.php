@@ -6,7 +6,7 @@
         <div class="col-md-8">
             <div class="card">
                 <div class="card-header">
-                タイトル
+                
                 </div>
                     <div class="card-body">
                         @if (session('status'))
@@ -14,23 +14,12 @@
                                 {{ session('status') }}
                             </div>
                         @endif
-                        <!-- <div class="card" style="width: 18rem;">
-                        <img class="card-img-top" src="..." alt="Card image cap">
-                        <div class="card-body"> -->
-                           
-                            <h5 class="card-title">{{ $name }}</h5>
-                        </div>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item">ゲームID{{ $gamelist }}</li>
-                            <li class="list-group-item">新着投稿掲示板</li>
-                        </ul>
-                        <div class="card-body">
-                        <div class="form-group">
-                        <label>コメント</label>
-                        <textarea class="form-control" rows="3" name="comment" ></textarea>
-                    </div>
+                         <div class="form-group">
+                                <label for="exampleFormControlTextarea1">コメント</label>
+                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="board_comment">{{ $user->board_comment }}</textarea>
+                         </div>
                             <a href="" class="btn btn-primary">コメントする</a>
-                            </div>
+                            
                     </div>
             </div>
         </div>

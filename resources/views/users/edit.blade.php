@@ -28,7 +28,7 @@
                 
                     <div class="form-group">
                         <label>ゲームID(任天堂ID・プレステーションID)</label>
-                        <input type="text" class="form-control" name="gamelist" value="{{ $gamelist }}">
+                        <input type="text" class="form-control" name="games_id" value="{{ $games_id }}">
                     </div>
                     <div class="form-group">
                         <label>ツイッターURL</label>
@@ -38,48 +38,41 @@
                         <label>自己紹介文</label>
                         <textarea class="form-control" rows="3" name="comment" >{{ $comment }}</textarea>
                     </div>
-                    <!-- <div class="form-check">
-                    </div> -->
-                        <!-- <label>ゲームタイトル選択(複数)</label>
-                    <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="games_id" value="1" checked>
-                    <label class="form-check-label" for="exampleRadios1">
-                        ポケモン
-                    </label>
-                    </div>
-                    <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="games_id" value="2">
-                    <label class="form-check-label" for="exampleRadios2">
-                        スマブラ
-                    </label>
-                    </div>
-                    <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="games_id" value="3">
-                    <label class="form-check-label" for="exampleRadios3">
-                        フォートナイト
-                    </label>
-                    </div>
-                    <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="games_id" value="4">
-                    <label class="form-check-label" for="exampleRadios4">
-                        スプラトゥーン
-                    </label>
-                    </div>
-                    <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="games_id" value="5">
-                    <label class="form-check-label" for="exampleRadios5">
-                        エイペックスレジェンド
-                    </label>
-                    </div>
-                    <div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="games_id" value="6">
-                    <label class="form-check-label" for="exampleRadios6">
-                        NBA２K
-                    </label>
-                    </div> -->
-
+                    <div class="container">
+                            <div class="row justify-content-center">
+                                <div class="col-md-8">
+                                    <div class="card">
+                                        <div class="card-header">
+                                            掲示板作成
+                                        </div>
+                                        <div class="card-body">
+                                                    <div class="form-group">
+                                                        <label for="exampleFormControlInput1">タイトル</label>
+                                                        <input type="text" class="form-control" name="board_name" value="{{ $board_name }}">
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="exampleFormControlSelect1">ゲーム選択</label>
+                                                        <select class="form-control" id="exampleFormControlSelect1" name="gamelist" value="{{ $gamelist }}">
+                                                        <option>ポケモン</option>
+                                                        <option>スマブラ</option>
+                                                        <option>フォートナイト</option>
+                                                        <option>スプラトゥーン</option>
+                                                        <option>エイペックス</option>
+                                                        <option>NBA2K</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        <label for="exampleFormControlTextarea1">コメント</label>
+                                                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="board_comment">{{ $board_comment }}</textarea>
+                                                    </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     <input type="hidden" name="user_id" value="{{ Auth::id() }}">
                     <input type="submit" value="変更する">
+
 
                     </form>
                 

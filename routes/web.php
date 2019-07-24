@@ -16,7 +16,8 @@
 // });
 
 Auth::routes();
-Route::get('/users/create/{id}','UsersController@create')->name('users.create');
+Route::get('/comment/create','commentController@create')->name('comment.create');
+// Route::get('/users/create','UsersController@create')->name('users.create');
 Route::get('/users/{user}','UsersController@show')->name('users.show');
 Route::get('/users/index', 'UsersController@index')->name('users.index');
 Route::get('/', 'GamesController@index')->name('games.index');

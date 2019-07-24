@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\User;
 
 class commentcontroller extends Controller
 {
@@ -21,9 +22,11 @@ class commentcontroller extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(User $user)
     {
-       
+        return view('comment.create', [
+            'user' => $user,
+            ]);
     }
 
     /**

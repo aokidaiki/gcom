@@ -18,26 +18,29 @@
                         <!-- <div class="card" style="width: 18rem;">
                         <img class="card-img-top" src="..." alt="Card image cap">
                         <div class="card-body"> -->
-                            @if( $id == Auth::user()->id)
-                                    <a href="{{ route('users.edit' ,$id) }}">編集</a>
-                            @endif
                             <h5 class="card-title">{{ $name }}</h5>
                             <p class="card-text">{{ $comment }}</p>
                         </div>
                         <ul class="list-group list-group-flush">
                             <!-- <li class="list-group-item">ゲームプレイ一覧{{ $games }}</li> -->
-                            <li class="list-group-item">ゲームID{{ $gamelist }}</li>
+                            <li class="list-group-item">ゲームID：{{ $games_id }}</li>
                             <li class="list-group-item">新着投稿掲示板</li>
+                            <h5 class="card-title">タイトル：{{ $board_name }}</h5>
+                            <p class="card-text">ゲーム名：{{ $gamelist }}</p>
+                            <p class="card-text">コメント：{{ $board_comment }}</p>
                         </ul>
-                        @if( $id == Auth::user()->id)
-                             <div class="card-body">
-                             <a href="{{ route('users.create', $id) }}" class="btn btn-primary">掲示板作成</a>
+                        <div class="card-body">
+                            <a href="{{ route('comment.create' ,$user) }}" class="btn btn-primary">コメントする</a>
+                        </div>
+                        <div class="card-body">
+                            <a href="{{ $twitter_url }}" class="card-link">ツイッターURL</a>
+                        </div>
+                            @if( $id == Auth::user()->id)
+                             <div class="card-body">  
+                                <a href="{{ route('users.edit' ,$id) }}" class="btn btn-primary">編集・掲示板作成</a>
                              </div>
                             @endif
-                        <div class="card-body">
-                            <a href="" class="btn btn-primary">コメントする</a>
-                            <a href="{{ $twitter_url }}" class="card-link">ツイッターURL</a>
-                            </div>
+
                     </div>
             </div>
         </div>
