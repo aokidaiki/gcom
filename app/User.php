@@ -12,8 +12,11 @@ class User extends Authenticatable
     
     protected $fillable = [
         'id', 'name', 'email', 'password','comment', 'gamelist',
-        'games_id', 'icom image', 'background_image', 'twitter_url',
+        'games_id', 'icon_image', 'background_image', 'twitter_url',
         'board_name', 'board_comment', 
     ];
     
+    public function comment(){
+        return $this->hasMany(\App\Comment::class);
+    }
 }

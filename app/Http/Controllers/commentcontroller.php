@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use App\Http\Requests\UserRequest;
+use App\Http\Requests\CommentRequest;
+use App\comment;
 
 class commentcontroller extends Controller
 {
@@ -22,11 +25,12 @@ class commentcontroller extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(User $user)
+    public function create()
     {
+        $user = \Request::query();
         return view('comment.create', [
             'user' => $user,
-            ]);
+        ]);
     }
 
     /**
@@ -35,9 +39,13 @@ class commentcontroller extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(CommentRequest $request)
     {
-        //
+        $comment = New Comment;
+        $input = $request->only($comment->getFillable());
+        $comment = $comment->create($input);
+
+        return redirect('/users/' . $request->board_user_id);
     }
 
     /**

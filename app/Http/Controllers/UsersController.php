@@ -5,7 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\User;
 use App\Games;
+use App\comment;
+use Auth;
 use App\Http\Requests\UserRequest;
+
 
 class UsersController extends Controller
 {
@@ -54,11 +57,7 @@ class UsersController extends Controller
      */
     public function store(Request $request)
     {
-        $user = New User;
-        $input = $request->only($user->getFillable());
-        $user = $user->create($input);
-
-        return redirect("/users/" . $user->id);
+        
     }
 
     /**
@@ -67,10 +66,15 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(User $user, Games $games)
+    public function show(User $user, Games $games ,Comment $comments)
     {
-        $games = Games::select('games_title')->where('id',$user->games_id)->get();
         
+        // $comments = Comment::select('comment')->where('board_user_id',$user->id)->get();
+        //select句でやると、commentテーブルのcommentのみしか取れない
+
+        $comments = Comment::where('board_user_id',$user->id)->get(); 
+
+        $games = Games::select('games_title')->where('id',$user->games_id)->get();
         $user_id = User::findOrFail($user->id);
         return view('users.show', [
             'id' => $user_id->id,
@@ -78,14 +82,14 @@ class UsersController extends Controller
             'comment' => $user_id->comment,
             'gamelist' => $user_id->gamelist,
             'games_id' => $user_id->games_id,
-            'icon image' => $user_id->icon_image, 
+            'icon_image' => $user_id->icon_image, 
             'background_image' => $user_id->background_image,
             'twitter_url' => $user_id->twitter_url,
             'board_name' => $user_id->board_name,
             'board_comment' => $user_id->board_comment,
             'user' => $user_id,
             'games' => $games,
-            
+            'comments' => $comments,
 
         ]);
     }
@@ -98,7 +102,7 @@ class UsersController extends Controller
      */
     public function edit(User $user)
     {
-
+        
         $user_id = User::findOrFail($user->id);
         return view('users.edit', [
             'id' => $user_id->id,
@@ -106,7 +110,7 @@ class UsersController extends Controller
             'comment' => $user_id->comment,
             'gamelist' => $user_id->gamelist,
             'games_id' => $user_id->games_id,
-            'icon image' => $user_id->icon_image, 
+            'icon_image' => $user_id->icon_image, 
             'background_image' => $user_id->background_image,
             'twitter_url' => $user_id->twitter_url,
             'board_name' => $user_id->board_name,
@@ -124,7 +128,13 @@ class UsersController extends Controller
      */
     public function update(Request $request, User $user)
     {
-            $user->fill($request->all());
+        if($request->icon_image){
+        $user->icon_image = $request->icon_image->storeAs('public/post_images',Auth::user()->id .'.jpg');
+        }
+        $user->fill($request->all());
+
+           
+        
 
 
             $user->save();

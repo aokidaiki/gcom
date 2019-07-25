@@ -14,14 +14,14 @@
                     @endif
 
                
-                <form action="{{ route('users.update', $id) }}" method="POST"> 
+                <form action="{{ route('users.update', $id) }}" method="POST" enctype="multipart/form-data"> 
                     {{ csrf_field() }}
                     @method('PUT')
 
-                    <!-- <div class="form-group">
+                    <div class="form-icon_image">
                         <label>画像アイコン</label>
-                        <input type="file" class="form-control-file" name="icom image">
-                    </div> -->
+                        <input type="file" class="form-control-file" name="icon_image">
+                    </div>
                         <label>名前</label>
                         <input type="text" class="form-control" name="name" value="{{ $name }}">
                         <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->

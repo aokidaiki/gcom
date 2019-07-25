@@ -15,22 +15,37 @@
                                 {{ session('status') }}
                             </div>
                         @endif
-                        <!-- <div class="card" style="width: 18rem;">
-                        <img class="card-img-top" src="..." alt="Card image cap">
-                        <div class="card-body"> -->
+                            @if ($icon_image)
+                            <p>画像：<img src ="/storage/post_images/{{ $user->id }}.jpg"></p>
+                            @endif
                             <h5 class="card-title">{{ $name }}</h5>
                             <p class="card-text">{{ $comment }}</p>
                         </div>
                         <ul class="list-group list-group-flush">
                             <!-- <li class="list-group-item">ゲームプレイ一覧{{ $games }}</li> -->
                             <li class="list-group-item">ゲームID：{{ $games_id }}</li>
-                            <li class="list-group-item">新着投稿掲示板</li>
-                            <h5 class="card-title">タイトル：{{ $board_name }}</h5>
+                            <div class="card-header">
+                　　　 　　　 　新着掲示板
+                　　　 　　　 </div>
+                            <h5 class="card-title">タイトル：{{ $user->board_name }}</h5>
                             <p class="card-text">ゲーム名：{{ $gamelist }}</p>
-                            <p class="card-text">コメント：{{ $board_comment }}</p>
+                            <p class="card-text">コメント：{{ $user->board_comment }}</p>
                         </ul>
+                        <div class="p-3">
+                        <h3 class="card-title">コメント一覧</h3>
+                        　  @foreach($comments as $comment)
+                            <div class="card">
+                                <div class='card-body'>
+                                    <p class="card-text">{{ $comment->comment }}</p>
+                                    <p class="card-text">
+                                        投稿者：{{ $comment->post_user->name }}
+                                     </p>
+                                </div>
+                            </div>
+                            @endforeach
+                           
                         <div class="card-body">
-                            <a href="{{ route('comment.create' ,$user) }}" class="btn btn-primary">コメントする</a>
+                            <a href="{{ route('comments.create' ,['user' => $user]) }}" class="btn btn-primary">コメントする</a>
                         </div>
                         <div class="card-body">
                             <a href="{{ $twitter_url }}" class="card-link">ツイッターURL</a>

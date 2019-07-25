@@ -16,10 +16,11 @@
 // });
 
 Auth::routes();
-Route::get('/comment/create','commentController@create')->name('comment.create');
+// Route::get('/comment/create','commentController@create')->name('comment.create');
 // Route::get('/users/create','UsersController@create')->name('users.create');
 Route::get('/users/{user}','UsersController@show')->name('users.show');
 Route::get('/users/index', 'UsersController@index')->name('users.index');
 Route::get('/', 'GamesController@index')->name('games.index');
 Route::resource('/games', 'GamesController', ['except' => ['index']]);
 Route::resource('/users', 'UsersController',['except' => ['index']]);
+Route::resource('/comments', 'CommentController')->middleware('auth');
