@@ -15,13 +15,13 @@
                     <div class="card-body text-center">
                         <h1 class="card-title">{{ $name }}
                         <a href="{{ $twitter_url }}" class="btn btn-outline-primary float-right">twitter</a></h1>
+                        <a href=" {{ route('users.following', $user) }}">
                         <button type="button" class="btn btn-primary">
                         フォロー <span class="badge badge-light">{{ $follow_users_number }}</span>
-                        <span class="sr-only">unread messages</span>
                         </button>
+                        <a href=" {{ route('users.following', $user) }}">
                         <button type="button" class="btn btn-info">
                         フォロワー <span class="badge badge-light">{{ $be_followed_users_number }}</span>
-                        <span class="sr-only">unread messages</span>
                         </button>
                         @if( $id !== Auth::user()->id)
                         @if(!empty($followingeachother))

@@ -262,8 +262,25 @@ class UsersController extends Controller
 
         $follow_users_number = count($following_users);
         $be_followed_users_number = count($be_followed_users);
+        $user_id = User::findOrFail($user->id);
+        $games = Games::select('games_title')->where('id',$user->games_id)->get();
+        $comments = Comment::where('board_user_id', $user->id)->get();
 
-        return view('games.index',[
+
+        return view('users.following',[
+            'user' => $user,
+            'id' => $user_id->id,
+            'name' => $user_id->name, 
+            'comment' => $user_id->comment,
+            'gamelist' => $user_id->gamelist,
+            'games_id' => $user_id->games_id,
+            'icon_image' => $user_id->icon_image, 
+            'background_image' => $user_id->background_image,
+            'twitter_url' => $user_id->twitter_url,
+            'board_name' => $user_id->board_name,
+            'board_comment' => $user_id->board_comment,
+            'games' => $games,
+            'comments' => $comments,
             'following_users' => $following_users,
             'be_followed_users' => $be_followed_users,
             'follow_users_number' => $follow_users_number,
