@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Games;
 use App\User;
+use App\Http\Requests\UserRequest;
+use DB;
+use Auth;
 
 class GamesController extends Controller
 {
@@ -15,13 +18,18 @@ class GamesController extends Controller
      */
     public function index()
     {
-        $games_title = Games::all();
-        $user = User::all();
-        
+
+        $games_titles = Games::all();
+        $users = User::whereNotIn('id', [Auth::id()])->paginate(6);
+        $allusers = User::all();
+
         return view('games.index', [
-            'games_title' => $games_title,
-            'user' => $user,
+            'games_titles' => $games_titles,
+            'users' => $users,
+            'allusers' => $allusers,
+
         ]);
+        
     }
 
     /**

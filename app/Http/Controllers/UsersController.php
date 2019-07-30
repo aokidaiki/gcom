@@ -8,6 +8,7 @@ use App\Games;
 use App\comment;
 use Auth;
 use App\Http\Requests\UserRequest;
+use DB;
 
 
 class UsersController extends Controller
@@ -71,9 +72,20 @@ class UsersController extends Controller
         
         // $comments = Comment::select('comment')->where('board_user_id',$user->id)->get();
         //select句でやると、commentテーブルのcommentのみしか取れない
+        $login_user =Auth::user();
 
-        $comments = Comment::where('board_user_id',$user->id)->get(); 
+        $following_users = $user->followings()->get();
+        $be_followed_users = $user->followers()->get();
+        $login_id = Auth::id();
+        $follow_users_number = count($following_users);
+        $be_followed_users_number = count($be_followed_users);
 
+        $followingeachother = DB::table('followables')
+        ->where('user_id', $login_id)
+        ->where('followable_id', $user->id)
+        ->first();
+
+        $comments = Comment::where('board_user_id', $user->id)->get();
         $games = Games::select('games_title')->where('id',$user->games_id)->get();
         $user_id = User::findOrFail($user->id);
         return view('users.show', [
@@ -90,8 +102,15 @@ class UsersController extends Controller
             'user' => $user_id,
             'games' => $games,
             'comments' => $comments,
-
+            'following_users' => $following_users,
+            'be_followed_users' => $be_followed_users,
+            'follow_users_number' => $follow_users_number,
+            'be_followed_users_number' => $be_followed_users_number,
+            'followingeachother' => $followingeachother,
         ]);
+        
+            
+        
     }
 
     /**
@@ -104,6 +123,7 @@ class UsersController extends Controller
     {
         
         $user_id = User::findOrFail($user->id);
+        if($user_id->id == Auth::user()->id){
         return view('users.edit', [
             'id' => $user_id->id,
             'name' => $user_id->name, 
@@ -117,6 +137,7 @@ class UsersController extends Controller
             'board_comment' => $user_id->board_comment,
             'user' => $user_id,
         ]);
+        }
     }
 
     /**
@@ -128,18 +149,18 @@ class UsersController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        if($request->icon_image){
-        $user->icon_image = $request->icon_image->storeAs('public/post_images',Auth::user()->id .'.jpg');
+
+        $originalImg = $request->icon_image;
+        $user->fill($request->all()); //fill関数に入れてる
+        $user->save(); //データベースに保存
+        if(!empty($originalImg)) {
+          $filePath = $originalImg->store('public');
+          $user->icon_image = str_replace('public/', '', $filePath);
+          $user->save();
         }
-        $user->fill($request->all());
-
-           
-        
-
-
-            $user->save();
-             return redirect("/users/{$user->id}");
-            
+        // $user->fill($request->all());
+        // $user->save();
+        return redirect("/users/{$user->id}");
     }
 
     /**
@@ -152,4 +173,102 @@ class UsersController extends Controller
     {
         //
     }
+
+    public function follow(User $user){
+        
+        $login_user =Auth::user();
+        $login_user->follow($user);
+
+        $login_id = Auth::id();
+        $followingeachother = DB::table('followables')
+        ->where('user_id', $login_id)
+        ->where('followable_id', $user->id)
+        ->first();
+
+        $comments = Comment::where('board_user_id', $user->id)->get();
+        $games = Games::select('games_title')->where('id',$user->games_id)->get();
+        $user_id = User::findOrFail($user->id);
+        $following_users = $user->followings()->get();
+        $be_followed_users = $user->followers()->get();
+
+        $follow_users_number = count($following_users);
+        $be_followed_users_number = count($be_followed_users);
+
+
+        if(!empty($followingeachother)){
+            return view('users.show',[
+                'user' => $user,
+                'followingeachother' => $followingeachother,
+                'id' => $user_id->id,
+                'name' => $user_id->name, 
+                'comment' => $user_id->comment,
+                'gamelist' => $user_id->gamelist,
+                'games_id' => $user_id->games_id,
+                'icon_image' => $user_id->icon_image, 
+                'background_image' => $user_id->background_image,
+                'twitter_url' => $user_id->twitter_url,
+                'board_name' => $user_id->board_name,
+                'board_comment' => $user_id->board_comment,
+                'games' => $games,
+                'comments' => $comments,
+                'following_users' => $following_users,
+                'be_followed_users' => $be_followed_users,
+                'follow_users_number' => $follow_users_number,
+                'be_followed_users_number' => $be_followed_users_number,
+                ]);
+        }
+        return view('users.show',[
+            'user' => $user
+        ]);
+    }
+    public function unfollow(User $user){
+        $login_user =Auth::user();
+        $login_user->unfollow($user);
+
+        $user_id = User::findOrFail($user->id);
+        $games = Games::select('games_title')->where('id',$user->games_id)->get();
+        $comments = Comment::where('board_user_id', $user->id)->get();
+
+        $following_users = $user->followings()->get();
+        $be_followed_users = $user->followers()->get();
+
+        $follow_users_number = count($following_users);
+        $be_followed_users_number = count($be_followed_users);
+
+
+        return view('users.show',[
+            'user' => $user,
+            'id' => $user_id->id,
+            'name' => $user_id->name, 
+            'comment' => $user_id->comment,
+            'gamelist' => $user_id->gamelist,
+            'games_id' => $user_id->games_id,
+            'icon_image' => $user_id->icon_image, 
+            'background_image' => $user_id->background_image,
+            'twitter_url' => $user_id->twitter_url,
+            'board_name' => $user_id->board_name,
+            'board_comment' => $user_id->board_comment,
+            'games' => $games,
+            'comments' => $comments,
+            'following_users' => $following_users,
+            'be_followed_users' => $be_followed_users,
+            'follow_users_number' => $follow_users_number,
+            'be_followed_users_number' => $be_followed_users_number,
+        ]);
+    }
+    public function following(User $user){
+        $following_users = $user->followings()->get();
+        $be_followed_users = $user->followers()->get();
+
+        $follow_users_number = count($following_users);
+        $be_followed_users_number = count($be_followed_users);
+
+        return view('games.index',[
+            'following_users' => $following_users,
+            'be_followed_users' => $be_followed_users,
+            'follow_users_number' => $follow_users_number,
+            'be_followed_users_number' => $be_followed_users_number,
+        ]);
+    }
+
 }
