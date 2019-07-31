@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use App\Http\Requests\Request;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UserRequest extends FormRequest
@@ -24,16 +25,28 @@ class UserRequest extends FormRequest
     public function rules()
     {
         return [
-            'id' => 'required',
             'name' => 'required',
             'comment' => 'required',
-            'gamelist' => 'required',
-            'games_id' => 'required',
-            'icon_image' => 'required',
-            'background_image' => 'required',
-            'twitter_url' => 'required',
-            'board_name' => 'required',
-            'board_comment' => 'required',
         ];
+    }
+    public function attributes()
+    {
+        return [
+            'name' => '氏名',
+            'comment' => 'コメント',
+        ];
+    }
+    public function messages() {
+        return [
+            'name.required' => '*:attributeは必須項目です。',
+            'comment.required' => '*:attributeは必須項目です。',
+        ];
+    }
+    public function userAttributes()
+    {
+        return $this->only([
+            'name',
+            'comment'
+        ]);
     }
 }

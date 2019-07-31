@@ -1,8 +1,8 @@
 body{
-    background-color: rgb(221, 233, 221);
+    background-image: url("./images/20a0ea68.jpg");
 }
 nav{
-    background-color: #565E68;
+    background-color: #666;
 }
 .gcom_title{
     color:white;
@@ -13,4 +13,59 @@ nav{
 
 .custom-hamburger .navbar-toggler-icon{
     background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='white' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
-  }
+}
+
+.dropdown-item {
+    color:white;
+}
+
+h1 {
+    font-size: 24px;
+    color:#666;
+}
+
+h4 {
+    font-size: 14px;
+    color:#666;
+}
+
+h3 {
+    font-size: 16px;
+    color:#666;
+}
+h5 {
+    font-size: 12px;
+    color:#666;
+}
+p {
+    color:#666;
+}
+.container {
+    opacity: 0.97;
+}
+.btn-light {
+    opacity: 0.97;
+}
+
+.card-header:first-child {
+    color:#666;
+}
+.btn-outline-dark {
+    color: #666;
+    border-color: #666;
+}
+/* .btn-outline-dark:hover {
+    background: #67c5ff;
+    color: white;
+  } */
+.pagination {
+    justify-content: center;
+}
+.btn-outline-primary {
+    padding-right: 5px;
+    padding-left: 5px;
+    padding-top: 1px;
+    padding-bottom: 1px;
+    margin-right: 10px;
+    margin-left: auto;
+}

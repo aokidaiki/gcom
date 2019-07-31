@@ -22,21 +22,32 @@
                         <label>画像アイコン</label>
                         <input type="file" class="form-control-file" name="icon_image">
                     </div>
-                        <label>名前</label>
-                        <input type="text" class="form-control" name="name" value="{{ $name }}">
-                        <!-- <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small> -->
+                            <label>名前(必須)</label>
+                            <input type="text" class="form-control" name="name" value="{{ $name }}">
+                            @if($errors->has('name'))
+                                <div class="alert alert-danger" role="alert">
+                                    {{ $errors->first('name') }}
+                                </div>
+                            @endif
+                    <!-- <small id="emailHelp" class="form-text text-muted">We will never share your email </small>
 
-                    <!-- <div class="form-group">
+                    <div class="form-group">
                         <label>ゲームID(任天堂ID・プレステーションID)</label>
                         <input type="text" class="form-control" name="games_id" value="{{ $games_id }}">
                     </div> -->
+
                     <div class="form-group">
                         <label>ツイッターURL</label>
                         <input type="text" class="form-control" name="twitter_url" value="{{ $twitter_url }}">
                     </div>
                     <div class="form-group">
-                        <label>自己紹介文</label>
+                        <label>自己紹介文(必須)</label>
                         <textarea class="form-control" rows="3" name="comment" >{{ $comment }}</textarea>
+                        @if($errors->has('comment'))
+                            <div class="alert alert-danger" role="alert">
+                                {{ $errors->first('comment') }}
+                            </div>
+                        @endif
                     </div>
                     <div class="container">
                             <div class="row justify-content-center">
@@ -71,7 +82,7 @@
                             </div>
                         </div>
                     <input type="hidden" name="user_id" value="{{ Auth::id() }}">
-                    <input type="submit"  class="btn btn-primary btn-lg"　value="変更する">
+                    <input type="submit"  class="btn btn-outline-dark btn-lg"　value="作成">
 
 
                     </form>

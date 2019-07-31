@@ -20,8 +20,8 @@ class GamesController extends Controller
     {
 
         $games_titles = Games::all();
-        $users = User::whereNotIn('id', [Auth::id()])->paginate(6);
-        $allusers = User::all();
+        $users = User::whereNotIn('id', [Auth::id()])->orderBy('id', 'desc')->paginate(6);
+        $allusers = User::orderBy('id', 'desc');
 
         return view('games.index', [
             'games_titles' => $games_titles,

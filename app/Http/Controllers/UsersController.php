@@ -9,6 +9,7 @@ use App\comment;
 use Auth;
 use App\Http\Requests\UserRequest;
 use DB;
+use App\Http\CommentController;
 
 
 class UsersController extends Controller
@@ -147,16 +148,18 @@ class UsersController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(UserRequest $request, User $user)
     {
-
         $originalImg = $request->icon_image;
         $user->fill($request->all()); //fill関数に入れてる
+        if($user->isDirty("board_name")) {
+            Comment::where('board_user_id', $user->id)->delete();
+        }
         $user->save(); //データベースに保存
         if(!empty($originalImg)) {
-          $filePath = $originalImg->store('public');
-          $user->icon_image = str_replace('public/', '', $filePath);
-          $user->save();
+            $filePath = $originalImg->store('public');
+            $user->icon_image = str_replace('public/', '', $filePath);
+            $user->save();
         }
         // $user->fill($request->all());
         // $user->save();

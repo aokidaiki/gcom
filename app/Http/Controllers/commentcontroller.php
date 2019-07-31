@@ -90,6 +90,8 @@ class commentcontroller extends Controller
      */
     public function destroy($id)
     {
-        //
+        $board_user = Comment::find($id)->board_user_id;
+        Comment::find($id)->delete();
+        return redirect('/users/' . $board_user);
     }
 }
